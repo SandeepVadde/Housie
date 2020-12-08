@@ -23,7 +23,7 @@ public abstract class GameService {
 	public final void initializeGame(GameRequest gameRequest) {
 
 		List<Player> players = createPlayers(gameRequest.getNumberOfPlayers());
-		List<Integer> numberPool = IntStream.range(1, gameRequest.getRangeMax() + 1).boxed()
+		List<Integer> numberPool = IntStream.range(1, gameRequest.getRangeMax()).boxed()
 				.collect(Collectors.toList());
 		Dealer dealer = createDealer(players, gameRequest, numberPool);
 		players.forEach(player -> {

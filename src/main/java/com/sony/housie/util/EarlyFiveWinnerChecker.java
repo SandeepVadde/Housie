@@ -3,7 +3,7 @@ package com.sony.housie.util;
 import com.sony.housie.dto.GameRequest;
 import com.sony.housie.dto.Ticket;
 
-public class FirstFiveWinnerChecker implements WinnerChecker {
+public class EarlyFiveWinnerChecker implements WinnerChecker {
 
 	@Override
 	public boolean checkWinner(Ticket ticket, GameRequest gameRequest) {

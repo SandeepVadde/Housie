@@ -12,13 +12,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.sony.housie.dto.GameRequest;
 import com.sony.housie.dto.Ticket;
 import com.sony.housie.service.HousieGameService;
-import com.sony.housie.util.FirstFiveWinnerChecker;
+import com.sony.housie.util.EarlyFiveWinnerChecker;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FirstFiveWinnerCheckerTest {
+public class EarlyFiveWinnerCheckerTest {
 
 	@InjectMocks
-	private FirstFiveWinnerChecker firstFiveWinnerChecker;
+	private EarlyFiveWinnerChecker firstFiveWinnerChecker;
 
 	@Mock
 	private HousieGameService housieGameServiceMock;

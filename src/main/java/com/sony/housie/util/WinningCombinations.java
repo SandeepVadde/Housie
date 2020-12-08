@@ -4,7 +4,7 @@ public enum WinningCombinations {
 
 
 	TOP_LINE(new TopLineWinnerChecker()),
-	FIRST_FIVE(new FirstFiveWinnerChecker()),
+	EARLY_FIVE(new EarlyFiveWinnerChecker()),
 	FULL_HOUSE(new FullHouseWinChecker());
 	
 	WinnerChecker winnerChecker;

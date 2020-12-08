@@ -38,18 +38,17 @@ public class HousieGameService extends GameService {
 		Collections.shuffle(randomIntegers);
 		for (int i = 0; i < gameRequest.getRows(); i++) {
 			for (int j = 0; j < gameRequest.getNumbersPerRow(); j++) {
-				TicketEntry ticketEntry = new TicketEntry(randomIntegers.get(i), false);
+				TicketEntry ticketEntry = new TicketEntry(randomIntegers.get(0), false);
 				ticketEntries[i][j] = ticketEntry;
-				randomIntegers.remove(randomIntegers.get(i));
+				randomIntegers.remove(randomIntegers.get(0));
 			}
 			List<TicketEntry> list = Arrays.asList(ticketEntries[i]);
 			Collections.shuffle(list);
 			ticketEntries[i] = (TicketEntry[]) list.toArray();
 		}
-		System.out.println(Arrays.deepToString(ticketEntries));
+		//System.out.println(Arrays.deepToString(ticketEntries));
 		Ticket ticket = new Ticket(gameRequest.getRows(), gameRequest.getColumns(), gameRequest.getRangeMax(),
 				ticketEntries);
-		// System.out.println(Arrays.deepToString(ticket.getTicketEntries()));
 		return ticket;
 	}
 

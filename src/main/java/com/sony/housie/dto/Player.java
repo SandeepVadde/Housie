@@ -1,5 +1,7 @@
 package com.sony.housie.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.sony.housie.handler.TicketHandler;
@@ -12,6 +14,8 @@ public class Player {
 	private Ticket ticket;
 
 	private Dealer dealer;
+	
+	private List<WinningCombinations> winningStates = new ArrayList<>();
 
 	public int getPlayerId() {
 		return playerId;
@@ -37,6 +41,14 @@ public class Player {
 		this.dealer = dealer;
 	}
 
+	public List<WinningCombinations> getWinningStates() {
+		return winningStates;
+	}
+
+	public void setWinningStates(List<WinningCombinations> winningStates) {
+		this.winningStates = winningStates;
+	}
+
 	public void updateNumber(int inputNum, int pickedNumberCount, GameRequest gameRequest,
 			Set<WinningCombinations> winningCombinations) {
 		TicketHandler.updateTicket(inputNum, ticket);
@@ -44,6 +56,7 @@ public class Player {
 			winningCombinations.forEach(winningCombination -> {
 				boolean isWinner = TicketHandler.checkForWinningCombination(ticket, winningCombination, gameRequest);
 				if (isWinner) {
+					this.getWinningStates().add(winningCombination);
 					dealer.updateState(playerId, winningCombination, ticket);
 				}
 

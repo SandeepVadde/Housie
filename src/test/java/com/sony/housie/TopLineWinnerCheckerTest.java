@@ -3,8 +3,6 @@ package com.sony.housie;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,8 +30,7 @@ public class TopLineWinnerCheckerTest {
 		GameRequest gameRequest = MockUtil.getGameRequest();
 		Ticket ticket = MockUtil.createTicket(gameRequest);
 		assertNotEquals(true, topLineWinnerChecker.checkWinner(ticket, gameRequest));
-		TicketEntry[] topRow = Arrays.stream(ticket.getTicketEntries()).map(entry -> entry[0])
-				.toArray(TicketEntry[]::new);
+		TicketEntry[] topRow = ticket.getTicketEntries()[0];
 		for (TicketEntry entry : topRow) {
 			entry.setCalled(true);
 		}

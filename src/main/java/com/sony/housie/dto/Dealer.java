@@ -84,10 +84,15 @@ public class Dealer {
 	}
 
 	public void deal(GameRequest gameRequest) {
-		int randomIndex = new Random().ints(0, numberPool.size()).findFirst().getAsInt();
-		int pickedNumber = numberPool.remove(randomIndex);
-		System.out.println("Next number is: " + pickedNumber);
-		notifyPlayers(this.players, pickedNumber, this.pickedNumberCount++, gameRequest);
+		if (numberPool.size() > 0) {
+			int randomIndex = new Random().ints(0, numberPool.size()).findFirst().getAsInt();
+			int pickedNumber = numberPool.remove(randomIndex);
+			System.out.println("Next number is: " + pickedNumber);
+			notifyPlayers(this.players, pickedNumber, this.pickedNumberCount++, gameRequest);
+		} else {
+			System.out.println("**GAME OVER**");
+			System.exit(0);
+		}
 	}
 
 	public void notifyPlayers(List<Player> players, int pickedNumber, int count, GameRequest gameRequest) {
@@ -96,20 +101,16 @@ public class Dealer {
 			// futures are resolved
 			player.updateNumber(pickedNumber, count, gameRequest, this.availableWinningCombinations);
 		});
-		availableWinningCombinations.removeAll(currentWinningCombinations);
-		// if(availableWinningCombinations.isEmpty()) {
-		// System.out.println("****GAME OVER****");
-		// System.exit(0);
-		// }
 	}
 
 	public void updateState(int playerId, WinningCombinations winningCombination, Ticket ticket) {
 
 		if (!currentWinningCombinations.contains(winningCombination)) {
 			currentWinningCombinations.add(winningCombination);
-			if (winningCombination.equals(WinningCombinations.FIRST_FIVE)) {
+			availableWinningCombinations.remove(winningCombination);
+			if (winningCombination.equals(WinningCombinations.EARLY_FIVE)) {
 				System.out.println(
-						"We have a winner: Player with id: " + playerId + " has won 'First Five' winning combination");
+						"We have a winner: Player with id: " + playerId + " has won 'Early Five' winning combination");
 			} else if (winningCombination.equals(WinningCombinations.TOP_LINE)) {
 				System.out.println(
 						"We have a winner: Player with id: " + playerId + " has won 'Top Line' winning combination");
@@ -118,6 +119,11 @@ public class Dealer {
 						"We have a winner: Player with id: " + playerId + " has won 'Full House' winning combination");
 				// Assumption to exit game here if a full house combination is found
 				System.out.println("***GAME OVER***");
+				System.out.println("=====================");
+				System.out.println("Summary:");
+				this.players.forEach(player -> {
+					System.out.println("Player#" + player.getPlayerId() + ":" + player.getWinningStates());
+				});
 				System.exit(0);
 			} else {
 				System.out.println("Invalid winning combination");

@@ -29,6 +29,7 @@ public class Game {
 		}
 		while(!input.equalsIgnoreCase("Q"));
 		scanner.close();
+		System.exit(0);
 	}
 
 	public String getGameId() {
