@@ -97,8 +97,6 @@ public class Dealer {
 
 	public void notifyPlayers(List<Player> players, int pickedNumber, int count, GameRequest gameRequest) {
 		players.forEach(player -> {
-			// waits for player feedback, use completable Future and proceed once all
-			// futures are resolved
 			player.updateNumber(pickedNumber, count, gameRequest, this.availableWinningCombinations);
 		});
 	}
